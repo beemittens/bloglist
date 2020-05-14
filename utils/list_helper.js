@@ -5,11 +5,11 @@ const dummy = (_blogs) => {
 }
 
 const totalLikes = (blogs) => {
-  const reducer = (likes, blog) => {
+  const totalLikesReducer = (likes, blog) => {
     return likes + blog.likes
   }
 
-  return blogs.reduce(reducer, 0)
+  return blogs.reduce(totalLikesReducer, 0)
 }
 
 const favoriteBlog = (blogs) => {
@@ -42,13 +42,32 @@ const mostBlogs = (blogs) => {
     }
   }
 
-  var authorActivity = lodash.map(authorGroups, blogPerAuthor)
+  const authorActivity = lodash.map(authorGroups, blogPerAuthor)
   return authorActivity.sort((a, b) => { return b.blogs - a.blogs })[0]
+}
+
+const mostLikes = (blogs) => {
+  if (blogs.length === 0) {
+    return {}
+  }
+
+  const authorGroups = lodash.groupBy(blogs, 'author')
+
+  const likesPerAuthor = (blogs, author) => {
+    return {
+      author: author,
+      likes: totalLikes(blogs)
+    }
+  }
+
+  const authorLikes = lodash.map(authorGroups, likesPerAuthor)
+  return authorLikes.sort((a, b) => { return b.likes - a.likes })[0]
 }
 
 module.exports = {
   dummy,
   totalLikes,
   favoriteBlog,
-  mostBlogs
+  mostBlogs,
+  mostLikes
 }
