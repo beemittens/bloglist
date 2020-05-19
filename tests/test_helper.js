@@ -1,5 +1,8 @@
 const Blog = require('../models/blog')
 const User = require('../models/user')
+const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt')
+const config = require('../utils/config')
 
 const blogsInDb = async () => {
   const blogs = await Blog.find({})
@@ -9,6 +12,15 @@ const blogsInDb = async () => {
 const usersInDb = async () => {
   const users = await User.find({})
   return users.map(user => user.toJSON())
+}
+
+const encodeToken = (user) => {
+  const userForToken = {
+    username: user.username,
+    id: user._id,
+  }
+
+  return jwt.sign(userForToken, config.SECRET)
 }
 
 const initialApiBlogs = [
@@ -93,5 +105,6 @@ module.exports = {
   listBlogs,
   listWithOneBlog,
   blogsInDb,
-  usersInDb
+  usersInDb,
+  encodeToken
 }
