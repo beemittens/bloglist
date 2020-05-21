@@ -1,7 +1,6 @@
 const Blog = require('../models/blog')
 const User = require('../models/user')
 const jwt = require('jsonwebtoken')
-const bcrypt = require('bcrypt')
 const config = require('../utils/config')
 
 const blogsInDb = async () => {
