@@ -83,7 +83,7 @@ blogRouter.put('/:id', async (request, response, next) => {
       return response.status(401).json({ error: 'user not allowed to update this blog' })
     }
 
-    const updatedBlog = await (await (Blog.findByIdAndUpdate(request.params.id, blog, { new: true })))
+    const updatedBlog = await (Blog.findByIdAndUpdate(request.params.id, blog, { new: true }))
       .populate('user', { username: 1, name: 1 })
     response.json(updatedBlog.toJSON())
   }
