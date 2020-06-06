@@ -7,7 +7,8 @@
     "start": "cross-env NODE_ENV=production node index.js",
     "dev": "cross-env NODE_ENV=development nodemon index.js",
     "lint": "node_modules/.bin/eslint index.js",
-    "test": "cross-env NODE_ENV=test jest --verbose --runInBand"
+    "test": "cross-env NODE_ENV=test jest --verbose --runInBand",
+    "start:test": "cross-env NODE_ENV=test node index.js"
   },
   "repository": {
     "type": "git",
@@ -31,6 +32,8 @@
     "mongoose-unique-validator": "^2.0.3"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.9.0",
+    "@testing-library/react": "^10.0.4",
     "eslint": "^7.0.0",
     "jest": "^26.0.1",
     "nodemon": "^2.0.3",
